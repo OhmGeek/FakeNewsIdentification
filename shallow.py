@@ -1,4 +1,5 @@
 import csv
+import re
 from nltk.tokenize import word_tokenize
 
 DEFAULT_SETTINGS = {
@@ -28,8 +29,17 @@ class ShallowDataProcessor(object):
         
     def __get_word_features(self, passage):
         # FROM https://streamhacker.com/2010/05/10/text-classification-sentiment-analysis-naive-bayes-classifier/
-        return dict([(word, True) for word in passage])
+        return dict([(word, True) for word in passage.split(" ")])
 
+    def __filter_non_words(self, dataset):
+        for row in dataset:
+            row[1] = re.sub('\W+', ' ', row[1])
+        return dataset
+
+    def __set_all_lowercase(self, dataset):
+        for row in dataset:
+            row[1] = row[1].lower()
+        return dataset
     def process(self):
         # First, go through each row.
         # Filter the text of the article:
@@ -42,7 +52,9 @@ class ShallowDataProcessor(object):
         # Col 2: Label
         
         dataset = self.__parse_csv(self.data_str)
-        
+
+        dataset = self.__filter_non_words(dataset)
+        dataset = self.__set_all_lowercase(dataset)
         # Filter into fake and real
         real_data = [data for data in dataset if '0' in data[2]]
         fake_data = [data for data in dataset if '1' in data[2]]
@@ -50,6 +62,7 @@ class ShallowDataProcessor(object):
         real_features = [(self.__get_word_features(data[1]), '0') for data in real_data]
         fake_features = [(self.__get_word_features(data[1]), '1') for data in fake_data]
 
+        print(real_features)
         
 
 
