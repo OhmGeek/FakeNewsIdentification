@@ -57,20 +57,20 @@ class ShallowDataProcessor(object):
         if self.settings['remove_punctuation']: dataset = self.__filter_non_words(dataset)
         if self.settings['convert_to_lowercase']: dataset = self.__set_all_lowercase(dataset)
         # Filter into fake and real
+        return dataset
+
+
+class NaiveBayesProcessor(object):
+    def __init__(self):
+        pass
+    def get_data_from_dataset(self, dataset):
         real_data = [data for data in dataset if '0' in data[2]]
         fake_data = [data for data in dataset if '1' in data[2]]
         
         real_features = [(self.__get_word_features(data[1]), '0') for data in real_data]
         fake_features = [(self.__get_word_features(data[1]), '1') for data in fake_data]
 
-        print(real_features)
-        
-
-
-class NaiveBayesProcessor(object):
-    def __init__(self):
-        pass
-
+        return (real_features, fake_features)
     def train(self, data):
         pass
 
