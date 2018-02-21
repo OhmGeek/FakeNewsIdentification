@@ -40,6 +40,7 @@ class ShallowDataProcessor(object):
         for row in dataset:
             row[1] = row[1].lower()
         return dataset
+
     def process(self):
         # First, go through each row.
         # Filter the text of the article:
@@ -53,8 +54,8 @@ class ShallowDataProcessor(object):
         
         dataset = self.__parse_csv(self.data_str)
 
-        dataset = self.__filter_non_words(dataset)
-        dataset = self.__set_all_lowercase(dataset)
+        if self.settings['remove_punctuation']: dataset = self.__filter_non_words(dataset)
+        if self.settings['convert_to_lowercase']: dataset = self.__set_all_lowercase(dataset)
         # Filter into fake and real
         real_data = [data for data in dataset if '0' in data[2]]
         fake_data = [data for data in dataset if '1' in data[2]]
