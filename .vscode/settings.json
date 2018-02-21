@@ -1,3 +1,4 @@
 {
-    "python.linting.enabled": false
+    "python.linting.enabled": false,
+    "python.pythonPath": "/home/ryan/.virtualenvs/FakeNewsIdentification-5fa7gZdC/bin/python3.5"
 }

@@ -1,4 +1,5 @@
 import csv
+from nltk.tokenize import word_tokenize
 
 DEFAULT_SETTINGS = {
     "convert_to_lowercase": True,
@@ -25,17 +26,31 @@ class ShallowDataProcessor(object):
         csv_reader = csv.reader(rows)
         return list(csv_reader) # Read into a list, such that dataset[ROW][col] displays data.
         
+    def __get_word_features(self, passage):
+        # FROM https://streamhacker.com/2010/05/10/text-classification-sentiment-analysis-naive-bayes-classifier/
+        return dict([(word, True) for word in passage])
+
     def process(self):
         # First, go through each row.
         # Filter the text of the article:
         #   - remove punctuation
         #   - all to lower case
         # 
-        # Build up a dictionary of words
-        dataset = self.__parse_csv(self.data_str)
-        for row in dataset:
-            print(row)
 
+        # COL 0: ID
+        # Col 1: TExt
+        # Col 2: Label
+        
+        dataset = self.__parse_csv(self.data_str)
+        
+        # Filter into fake and real
+        real_data = [data for data in dataset if '0' in data[2]]
+        fake_data = [data for data in dataset if '1' in data[2]]
+        
+        real_features = [(self.__get_word_features(data[1]), '0') for data in real_data]
+        fake_features = [(self.__get_word_features(data[1]), '1') for data in fake_data]
+
+        
 
 
 class NaiveBayesProcessor(object):
@@ -51,8 +66,8 @@ class NaiveBayesProcessor(object):
 
 def main():
     dp = ShallowDataProcessor()
-    csv_string = "1,2,3\n4,5,6\n"
-    dp.read_dataset_from_string(csv_string)
+    filename = 'dataset.csv'
+    dp.read_dataset_from_file(filename)
     dp.process()
 
 if __name__ == '__main__':
