@@ -1,6 +1,8 @@
 import csv
 import re
-from nltk.tokenize import word_tokenize
+import nltk
+import random
+
 
 DEFAULT_SETTINGS = {
     "convert_to_lowercase": True,
@@ -27,9 +29,6 @@ class ShallowDataProcessor(object):
         csv_reader = csv.reader(rows)
         return list(csv_reader) # Read into a list, such that dataset[ROW][col] displays data.
         
-    def __get_word_features(self, passage):
-        # FROM https://streamhacker.com/2010/05/10/text-classification-sentiment-analysis-naive-bayes-classifier/
-        return dict([(word, True) for word in passage.split(" ")])
 
     def __filter_non_words(self, dataset):
         for row in dataset:
@@ -61,8 +60,10 @@ class ShallowDataProcessor(object):
 
 
 class NaiveBayesProcessor(object):
-    def __init__(self):
-        pass
+    def __get_word_features(self, passage):
+        # FROM https://streamhacker.com/2010/05/10/text-classification-sentiment-analysis-naive-bayes-classifier/
+        return dict([(word, True) for word in passage.split(" ")])
+
     def get_data_from_dataset(self, dataset):
         real_data = [data for data in dataset if '0' in data[2]]
         fake_data = [data for data in dataset if '1' in data[2]]
@@ -82,7 +83,16 @@ def main():
     dp = ShallowDataProcessor()
     filename = 'dataset.csv'
     dp.read_dataset_from_file(filename)
-    dp.process()
+    dataset = dp.process()
+
+    rd, fd = NaiveBayesProcessor().get_data_from_dataset(dataset)
+    rd.extend(fd)
+
+    training_data = random.sample(rd, int(len(rd) * 0.65))
+
+    classifier = nltk.NaiveBayesClassifier.train(training_data)
+    classifier.show_most_informative_features()
+    
 
 if __name__ == '__main__':
     main()
