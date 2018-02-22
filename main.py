@@ -11,6 +11,7 @@ def get_controller_instance(text_input):
         'q': QuitController(),
     }
     return options.get(processed_text_input)
+
 def main():
     is_running = True
     controller = None
