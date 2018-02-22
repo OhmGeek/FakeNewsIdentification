@@ -5,6 +5,8 @@ class Word2Vec(object):
         pass
     def corpus_to_vec_list(self, corpus):
         # WORD2VEC pretrained model from http://mccormickml.com/2016/04/12/googles-pretrained-word2vec-model-in-python/
+
+        # TODO: load models dynamically using the module path, rather than hard coded.
         vec_model = gensim.models.KeyedVectors.load_word2vec_format('./deep/model/gnews.bin/data', binary=True)
         vec_list = []
         for word in corpus.split(" "):
