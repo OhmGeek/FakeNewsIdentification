@@ -72,8 +72,10 @@ class NaiveBayesProcessor(object):
         fake_features = [(self.__get_word_features(data[1]), '1') for data in fake_data]
 
         return (real_features, fake_features)
-    def train(self, data):
-        pass
+
+    def train(self, training_data):
+        # train using nltk
+        self.model = nltk.NaiveBayesClassifier.train(training_data)
 
     def get_output(self, input):
         pass
