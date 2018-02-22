@@ -1,35 +1,16 @@
 import colorama
-from abc import ABC, abstractmethod
-# THIS FILE SHOULD PRESENT OUTPUT TO BENCHMARK ABOVE QUESTIONS.
 
-class AbstractController(ABC):
-    @abstractmethod
-    def display(self):
-        pass
-
-class MenuController(AbstractController):
-    def display(self):
-        print(colorama.Fore.BLUE + "Welcome to Fake News Identification")
-        print()
-        print()
-        print("Options:")
-        print("q: Quit")
-        print(colorama.Fore.RESET)
-        return
-
-class QuitController(AbstractController):
-    def display(self):
-        print("Bye!")
-        exit(0)
-
+from controllers.abstract import AbstractController
+from controllers.menu import MenuController
+from controllers.quit import QuitController
 
 def get_controller_instance(text_input):
+    """ This takes a string, and outputs an instance of the specified Controller """
     processed_text_input = text_input.lower().strip()
     options = {
         'q': QuitController(),
     }
     return options.get(processed_text_input)
-
 def main():
     is_running = True
     controller = None
