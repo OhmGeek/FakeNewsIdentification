@@ -8,19 +8,35 @@ from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
 import random
 from shallow.shallow_data_processor import ShallowDataProcessor
 
+DEFAULT_MODEL_SETTINGS = {
+    'use_tfidf': True
+}
 
 class NaiveBayesProcessor(object):
+    def __init__(self, model_settings=DEFAULT_MODEL_SETTINGS):
+        settings = []
+        settings.append(('vect', CountVectorizer()))
+
+        if(model_settings.get('use_tf')):
+            settings.append(('tfidf', TfidfTransformer(use_idf=False)))
+        elif(model_settings.get('use_tfidf')):
+            settings.append(('tfidf', TfidfTransformer(use_idf=True)))
+
+        settings.append(('clf', MultinomialNB()))
+        
+        self.model = Pipeline(settings)
 
     def train(self, training_data):
+        """
+            Train the Naive Bayes processor on a set of training data
 
+            Arguments:
+                training_data -- a list of lists containing the training data, in the form of ['ID', 'passage', 'classification']
+        """
         parameters = {}
         passages = [passage[1] for passage in training_data]
         target_class = [val[2] for val in training_data]
-        self.model = Pipeline([
-            ('vect', CountVectorizer()),
-            ('tfidf', TfidfTransformer(use_idf=False)),
-            ('clf', MultinomialNB()),
-        ])
+        
         
         # fit data, using the words, targeting the real/fake
         self.model.fit(passages, target_class)
@@ -28,9 +44,16 @@ class NaiveBayesProcessor(object):
         pass
 
     def test_model(self, test_data):
+        """
+            Test the trained model on a set of test data.
+
+            Arguments:
+                test_data -- a list of lists containing the training data, in the form of ['ID', 'passage', 'classification']
+        """
         test_data_passages = [val[1] for val in test_data]
         test_data_classif = [val[2] for val in test_data]
         return self.model.score(test_data_passages, test_data_classif)
+
 def main():
     dp = ShallowDataProcessor()
     filename = 'dataset.csv'

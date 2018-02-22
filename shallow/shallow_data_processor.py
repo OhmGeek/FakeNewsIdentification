@@ -1,8 +1,8 @@
 import csv
 import re
 DEFAULT_SETTINGS = {
-    "convert_to_lowercase": True,
-    "remove_punctuation": True
+    "convert_to_lowercase": False,
+    "remove_punctuation": False,
 }
 
 class ShallowDataProcessor(object):
