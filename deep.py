@@ -12,8 +12,8 @@ def main():
     
     wtv = Word2Vec()
     
-    train_x = np.array([np.array(wtv.corpus_to_vec_list(row[1])) for row in dataset[1:]])
-    train_y = np.array([row[2] for row in dataset[1:]])
+    train_x = np.array([np.array(wtv.corpus_to_vec_list(row[1])) for row in dataset[1:5]])
+    train_y = np.array([row[2] for row in dataset[1:5]])
     print(train_x)
     print(train_y)
     max_length = len(train_x[2])

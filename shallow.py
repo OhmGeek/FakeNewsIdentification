@@ -9,13 +9,24 @@ import random
 from shallow.shallow_data_processor import ShallowDataProcessor
 
 DEFAULT_MODEL_SETTINGS = {
-    'use_tfidf': True
+    'use_tfidf': True,
+    'use_ngram': True,
+    'ngram_count': 3,
 }
 
 class NaiveBayesProcessor(object):
     def __init__(self, model_settings=DEFAULT_MODEL_SETTINGS):
         settings = []
-        settings.append(('vect', CountVectorizer()))
+        ngram_range = (1,1) # set the default ngram range
+        if(model_settings.get('use_ngram') and model_settings.get('ngram_count')):
+            num_of_ngrams = int(model_settings.get('ngram_count'))
+            ngram_range = (num_of_ngrams, num_of_ngrams)
+        
+        settings.append(('vect', CountVectorizer(ngram_range=ngram_range)))
+
+
+
+
 
         if(model_settings.get('use_tf')):
             settings.append(('tfidf', TfidfTransformer(use_idf=False)))
@@ -60,8 +71,10 @@ def main():
     dp.read_dataset_from_file(filename)
     dataset = dp.process()
     
-    train_dataset = random.sample(dataset, int(len(dataset) * 0.65))
-    test_dataset = random.sample(dataset, int(len(dataset) * 0.35))
+    pivot = int(0.5 * len(dataset))
+
+    train_dataset = dataset[:pivot]
+    test_dataset = dataset[pivot+1:]
 
 
     classifier = NaiveBayesProcessor()
