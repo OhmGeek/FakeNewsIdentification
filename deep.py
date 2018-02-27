@@ -1,13 +1,12 @@
 from shallow.shallow_data_processor import ShallowDataProcessor
 from deep.word_representation import Word2Vec
 import numpy as np
-from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
-from keras.layers import Dense, Input, LSTM, Embedding, Dropout, Activation, Flatten
-from keras.layers.merge import concatenate
-from keras.models import Model, Sequential
-from keras.layers.normalization import BatchNormalization
-from keras.callbacks import EarlyStopping, ModelCheckpoint
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import LSTM
+from keras.layers import Dropout
+from keras.layers.embeddings import Embedding
+from keras.preprocessing import sequence
 from keras.utils import to_categorical
 
 def main():
@@ -18,28 +17,22 @@ def main():
     
     wtv = Word2Vec()
     
-    train_x = np.array([np.array(wtv.corpus_to_vec_list(row[1])) for row in dataset[1:5]])
-    train_y = np.array([row[2] for row in dataset[1:5]])
+    train_x = np.array([np.array(wtv.corpus_to_vec_list(row[1])) for row in dataset[1:]])
+    train_y = np.array([row[2] for row in dataset[1:]])
 
-    test_x = np.array([np.array(wtv.corpus_to_vec_list(row[1])) for row in dataset[6:10]])
-    test_y = np.array([row[2] for row in dataset[6:10]])
-    max_length = len(train_x[2])    
-    train_x = pad_sequences(train_x, max_length, value=0.0)
+    max_length = 300
+    train_x = sequence.pad_sequences(train_x, maxlen=max_length)
     train_y = to_categorical(train_y, num_classes=2)
-    print(train_x)
-    print(train_y)
-
-    test_x = pad_sequences(train_x, max_length, value=0.0)
-    test_y = to_categorical(train_y, num_classes=2)
 
     model = Sequential()
-    model.add(Embedding(input_dim=max_length, output_dim=256))
-    model.add(LSTM(input_dim=256, units=128))
-    model.add(Dense(2))
-    model.add(Activation('softmax'))
-    model.compile(optimizer='adam', loss='mse',metrics=['accuracy'])
-
-    model.fit(train_x, train_y, validation_data=(test_x, test_y), epochs=10)
-
+    model.add(Embedding(input_dim=max_length, output_dim=1000, input_length=300))
+    model.add(Dropout(0.2))
+    model.add(LSTM(100))
+    model.add(Dropout(0.2))
+    model.add(Dense(2, activation='sigmoid'))
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    print(model.summary())
+    model.fit(train_x, train_y, epochs=3, batch_size=64)
+   
 if __name__ == '__main__':
     main()
