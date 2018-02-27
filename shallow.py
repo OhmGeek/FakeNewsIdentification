@@ -9,7 +9,7 @@ import random
 from shallow.shallow_data_processor import ShallowDataProcessor
 
 DEFAULT_MODEL_SETTINGS = {
-    'use_tfidf': True,
+    'use_tfidf': False,
     'use_ngram': True,
     'ngram_count': 3,
 }
