@@ -6,8 +6,9 @@ from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
 
 DEFAULT_MODEL_SETTINGS = {
     'use_tfidf': False,
+    'use_tf': True,
     'use_ngram': True,
-    'ngram_count': 3,
+    'ngram_count': 5,
 }
 
 class NaiveBayesProcessor(object):
@@ -55,4 +56,13 @@ class NaiveBayesProcessor(object):
         """
         test_data_passages = [val[1] for val in test_data]
         test_data_classif = [val[2] for val in test_data]
-        return self.model.score(test_data_passages, test_data_classif)
+        statistics = {}        
+        classif_output = self.model.predict(test_data_passages)
+
+        # Calculate Metrics
+        statistics['accuracy'] = metrics.accuracy_score(test_data_classif, classif_output)
+        statistics['f1_score'] = metrics.f1_score(test_data_classif, classif_output, average='weighted')
+        statistics['recall'] = metrics.recall_score(test_data_classif, classif_output, average='weighted')
+        statistics['precision'] = metrics.precision_score(test_data_classif, classif_output, average='weighted')
+
+        return statistics

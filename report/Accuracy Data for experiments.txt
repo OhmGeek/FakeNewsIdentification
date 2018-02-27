@@ -1,0 +1,25 @@
+TFIDF Only: 0.816861
+TF Only:    0.826966
+
+NGRAM 1   : 0.883486
+NGRAM 2   : 0.877171
+NGRAM 3   : 0.882222
+NGRAM 4   : 0.873698
+NGRAM 5   : 0.860436
+
+TFIDF NG 1: 0.816861
+TFIDF NG 2: 0.790654
+TFIDF NG 3: 0.863909
+TFIDF NG 4: 0.875908
+TFIDF NG 5: 0.859488
+
+TF    NG 1: 0.826965
+TF    NG 2: 0.731923
+TF    NG 3: 0.838964
+TF    NG 4: 0.854752
+TF    NG 5: 0.855384
+
+
+
+I'm using word based ngrams here.
+Also, training on 50% of the dataset, testing on 50% of the data.

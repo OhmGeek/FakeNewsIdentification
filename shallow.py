@@ -15,7 +15,7 @@ def main():
     filename = 'dataset.csv'
     dp.read_dataset_from_file(filename)
     dataset = dp.process()
-    
+
     # Split Data
     pivot = int(0.5 * len(dataset))
 
@@ -26,7 +26,9 @@ def main():
     # Train, and test
     classifier = NaiveBayesProcessor()
     classifier.train(train_dataset)    
-    print("Test result: " + str(classifier.test_model(test_dataset)))
 
+    score = classifier.test_model(test_dataset)
+    print("Score " + str(score))
+    
 if __name__ == '__main__':
     main()
