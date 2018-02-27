@@ -5,8 +5,8 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
 
 DEFAULT_MODEL_SETTINGS = {
-    'use_tfidf': False,
-    'use_tf': True,
+    'use_tfidf': True,
+    'use_tf': False,
     'use_ngram': True,
     'ngram_count': 5,
 }
