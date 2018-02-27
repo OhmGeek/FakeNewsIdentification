@@ -18,9 +18,7 @@ def main():
     while is_running:
         controller = MenuController()
         controller.display()
-
         text_input = input("Option: ")
-        
         controller = get_controller_instance(text_input)
         controller.display()
 
