@@ -17,8 +17,8 @@ def main():
     
     wtv = Word2Vec()
     
-    train_x = np.array([np.array(wtv.corpus_to_vec_list(row[1])) for row in dataset[1:]])
-    train_y = np.array([row[2] for row in dataset[1:]])
+    train_x = np.array([np.array(wtv.corpus_to_vec_list(row[1])) for row in dataset[1:100]])
+    train_y = np.array([row[2] for row in dataset[1:100]])
 
     max_length = 300
     train_x = sequence.pad_sequences(train_x, maxlen=max_length)
@@ -32,7 +32,7 @@ def main():
     model.add(Dense(2, activation='sigmoid'))
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
     print(model.summary())
-    model.fit(train_x, train_y, epochs=3, batch_size=64)
+    model.fit(train_x, train_y, epochs=30, batch_size=64)
    
 if __name__ == '__main__':
     main()
