@@ -24,10 +24,6 @@ class NaiveBayesProcessor(object):
         
         settings.append(('vect', CountVectorizer(ngram_range=ngram_range)))
 
-
-
-
-
         if(model_settings.get('use_tf')):
             settings.append(('tfidf', TfidfTransformer(use_idf=False)))
         elif(model_settings.get('use_tfidf')):
