@@ -8,7 +8,6 @@ class Word2Vec(object):
 
         # TODO: load models dynamically using the module path, rather than hard coded.
         # TODO: remove limit when running on Lexo. Limit is only so that Lino doesn't crash badly.
-        first = True
-        vec_list = None
-        word_counter = 0
-        return np.nanmean([self.vec_model[word] for word in corpus.split(" ") if word in self.vec_model.vocab], dtype=np.float64, axis=0)
+        mean = np.nanmean([self.vec_model[word] for word in corpus.split(" ") if word in self.vec_model.vocab], dtype=np.float64, axis=0)
+        mean = mean[np.logical_not(np.isnan(mean))]
+        return mean

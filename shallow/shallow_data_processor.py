@@ -1,5 +1,7 @@
 import csv
 import re
+from collections import Counter
+
 DEFAULT_SETTINGS = {
     "convert_to_lowercase": True,
     "remove_punctuation": True,
@@ -35,7 +37,32 @@ class ShallowDataProcessor(object):
             row[1] = row[1].lower()
         return dataset
 
-    def process(self):
+    def __filter_stop_words(self, dataset, stopwords):
+        for row in dataset:
+            words = row[1].split(" ")
+            words = [word for word in words if word.lower() not in stopwords]
+            row[1] = ' '.join(words)
+        return dataset
+    
+    def __filter_out_uncommon_words(self, dataset, top_words):
+        word_counts = {}
+        for row in dataset:
+            words = row[1].split(" ")
+            for word in words:
+                if word in word_counts:
+                    word_counts[word] += 1
+                else:
+                    word_counts[word] = 1
+        
+        # Now we have counts, return
+        counter = Counter(word_counts)
+        for row in dataset:
+            words = row[1].split(" ")
+            words = [word for word in words if word in counter.most_common(top_words)]
+            row[1] = ' '.join(words)
+        return dataset
+
+    def process(self,stopwords=[],get_most_common_words=-1):
         # First, go through each row.
         # Filter the text of the article:
         #   - remove punctuation
@@ -50,5 +77,9 @@ class ShallowDataProcessor(object):
 
         if self.settings['remove_punctuation']: dataset = self.__filter_non_words(dataset)
         if self.settings['convert_to_lowercase']: dataset = self.__set_all_lowercase(dataset)
+        if(get_most_common_words > 0):
+            dataset = self.__filter_out_uncommon_words(dataset, get_most_common_words)
+
+        dataset = self.__filter_stop_words(dataset, stopwords)
         # Filter into fake and real
         return dataset
