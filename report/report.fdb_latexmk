@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1518542419 "/home/ryan/Documents/Programming/FakeNewsIdentification/report/report.tex" "report.pdf" "report" 1518542419
-  "/etc/texmf/web2c/texmf.cnf" 1518442574 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/ryan/Documents/Programming/FakeNewsIdentification/report/report.tex" 1518542419 1818 796db84a595d029acdeca75d0bc38425 ""
+["pdflatex"] 1520695374 "/home/ryan/Documents/Programming/FakeNewsIdentification/report/report.tex" "report.pdf" "report" 1520695375
+  "/etc/texmf/web2c/texmf.cnf" 1511989721 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/home/ryan/Documents/Programming/FakeNewsIdentification/report/report.tex" 1520695374 263 25b8c7d3720bd7261e753f98df652024 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm" 1136768653 1524 4414a8315f39513458b80dfc63bff03a ""
@@ -47,11 +47,11 @@
   "/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty" 1417732693 4962 9c1069474ff71dbc47d5006555e352d3 ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1488610416 31340 0f53f8665296bf8fe6c697f9505e31d8 ""
   "/usr/share/texmf/web2c/texmf.cnf" 1488610416 31340 0f53f8665296bf8fe6c697f9505e31d8 ""
-  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1518442703 2044936 0edf5ca64352b50b145b46ea2ee03d92 ""
-  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1518442714 3885306 374fd4007e2843fbebef8cd1fb50759b ""
-  "report.aux" 1518542419 384 274f360dd73fc1d7cb4a2d0d7432418d ""
-  "report.tex" 1518542419 1818 796db84a595d029acdeca75d0bc38425 ""
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1511989839 2044936 0edf5ca64352b50b145b46ea2ee03d92 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1511989919 3871397 38459f329ebb72905e84ad19e3a69582 ""
+  "report.aux" 1520695375 107 f252710e069e1bfd0033531a30851cfd ""
+  "report.tex" 1520695374 263 25b8c7d3720bd7261e753f98df652024 ""
   (generated)
-  "report.log"
   "report.aux"
+  "report.log"
   "report.pdf"

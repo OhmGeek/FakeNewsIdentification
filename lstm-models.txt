@@ -1,0 +1,48 @@
+Performance of LSTMs:
+
+# First Attempt:
+- 1000 embedding layer
+- 0.1 dropout
+- LSTM 100
+- Dropout 0.1
+- Dense 2
+- LR: 0.0005
+- Num words: 10000
+Score (accuracy) = 80%
+
+# Second Attempt:
+- 1000 embedding layer
+- 0.2 dropouts
+- LSTM 200
+- Dropout 0.2
+- Dense 2
+- LR: 0.0005
+- Num words: 10000
+Score (accuracy) = 78%
+
+# Third Attempt:
+
+- 1000 embedding layer
+- 0.1 dropouts
+- LSTM 200
+- Dropout 0.1
+- Dense 2
+- LR: 0.0005
+- Num words: 10000
+Score (accuracy) = 80%
+
+# Fourth Attempt:
+
+Same as above, only between dropout 0.1 and Dense 2,
+add a further Dense 100 layer with tanh activation.
+
+This produces a mode lwith a greater accuracy level.
+
+Score (accuracy) = 83%
+
+# Fifth Attempt:
+Using two lstm layers, one 200, one 100, with dropout between. And also dense layer at the end.
+
+Score (accuracy) = 81.33%
+
+Not as good for 5 epochs, but might be worth training this on further epochs as this might improve the scoring (assuming we don't overtrain).
