@@ -54,9 +54,8 @@ def main():
                             input_length=1000,
                             trainable=False))
     model.add(Dropout(0.1))
-    model.add(LSTM(420))
+    model.add(LSTM(100))
     model.add(Dropout(0.1))
-    model.add(Dense(500, activation='sigmoid'))
     model.add(Dense(2, activation='softmax'))
     adam = Adam(lr=0.0005, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=True)
     model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
