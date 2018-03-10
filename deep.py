@@ -6,6 +6,7 @@ from keras.layers import Dense
 from keras.layers import LSTM
 from keras.layers import Dropout
 from keras.layers.embeddings import Embedding
+from keras.preprocessing.text import Tokenizer
 from keras.preprocessing import sequence
 from keras.utils import to_categorical
 from keras.optimizers import Adam
@@ -14,36 +15,44 @@ def main():
     filename = 'dataset.csv'
     dp.read_dataset_from_file(filename)
     stopword_list = ["I" , "a" , "about" ,"an" ,"are" ,"as" ,"at" ,"be" ,"by" ,"com" ,"for" ,"from","how","in" ,"is" ,"it" ,"of" ,"on" ,"or","that","the" ,"this","to" ,"was" ,"what" ,"when","where","who" ,"will","with","the","www"]
-    dataset = dp.process(stopwords=stopword_list, get_most_common_words=5000)
+    dataset = dp.process(stopwords=stopword_list)
     max_data=1000
     pivot = int(0.6 * max_data)
-    wtv = Word2Vec()
-    print("Start training set x")
-    train_x = np.array([wtv.corpus_to_vec_list(row[1]) for row in dataset[1:pivot]])
-    print(train_x)
-    print("Now training set y")
-    train_y = np.array([row[2] for row in dataset[1:pivot]])
-    print("Now test set x")
-    test_x = np.array([np.array(wtv.corpus_to_vec_list(row[1])) for row in dataset[pivot+1:max_data]])
-    print("Now test set y")
-    test_y = np.array([row[2] for row in dataset[pivot+1:max_data]])
-
-    print("Train set X: ")
 
 
-    max_length = 300
+    # First, we are going to tokenize the dataset.
+    # Then convert to sequences
+    # Finally we will create an embedding from the word2vec method.
+    tokenizer = Tokenizer(num_words=10000)
+    tokenizer.fit_on_texts([data[1] for data in dataset])
+    sequences = tokenizer.texts_to_sequences([data[1] for data in dataset[1:]])
+    word_index = tokenizer.word_index
+    print("Found " + str(word_index) + " unique tokens")
+
+    train_x = sequence.pad_sequences(sequences, maxlen=1000)
+
+    labels = [int(doc[2]) for doc in dataset[1:]]
+    train_y = to_categorical(labels) # Labels
+
+
+    # Now deal with embeddings, using word2vec
+    word2vec = Word2Vec()
+    embedding_matrix = np.zeros((len(word_index) + 1, 300))
+    for word, i in word_index.items():
+        if word in word2vec.vec_model:
+            # words not found in embedding index will be all-zeros.
+            embedding_matrix[i] = word2vec.vec_model[word]
+
     print(train_x.shape)
-    train_x = sequence.pad_sequences(train_x, maxlen=max_length)
-    train_y = to_categorical(train_y, num_classes=2)
+    print(train_y.shape)
 
-    test_x = sequence.pad_sequences(test_x, maxlen=max_length)
-    test_y = to_categorical(test_y, num_classes=2)
-
-    print(train_x.shape)
-    print(test_x.shape)
 
     model = Sequential()
-    model.add(Embedding(input_dim=max_length, output_dim=1000, input_length=300))
+    model.add(Embedding(len(word_index) + 1,
+                            300,
+                            weights=[embedding_matrix],
+                            input_length=1000,
+                            trainable=False))
     model.add(Dropout(0.1))
     model.add(LSTM(420))
     model.add(Dropout(0.1))
