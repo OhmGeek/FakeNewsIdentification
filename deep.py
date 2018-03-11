@@ -23,7 +23,7 @@ def main():
     # First, we are going to tokenize the dataset.
     # Then convert to sequences
     # Finally we will create an embedding from the word2vec method.
-    tokenizer = Tokenizer(num_words=15000)
+    tokenizer = Tokenizer(num_words=10000)
     tokenizer.fit_on_texts([data[1] for data in dataset])
     sequences = tokenizer.texts_to_sequences([data[1] for data in dataset[1:]])
     word_index = tokenizer.word_index
@@ -58,16 +58,13 @@ def main():
                             input_length=1000,
                             trainable=False))
     model.add(Dropout(0.1))
-    model.add(LSTM(200, return_sequences=True))
-    model.add(Dropout(0.1))
-    model.add(LSTM(100))
-    model.add(Dropout(0.1))
+    model.add(LSTM(200))
     model.add(Dense(100, activation='tanh'))
     model.add(Dense(2, activation='softmax'))
     adam = Adam(lr=0.0005, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=True)
     model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
     print(model.summary())
-    model.fit(train_x, train_y, epochs=8, batch_size=32, validation_data=(test_x, test_y))
+    model.fit(train_x, train_y, epochs=4, batch_size=32, validation_data=(test_x, test_y))
     score = model.evaluate(test_x, test_y, verbose=1)
     print("Final Accuracy is: " + str(score))
     model.save('deep-model.h5')

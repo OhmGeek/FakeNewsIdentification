@@ -55,7 +55,23 @@ ngram has occurred in the corpus. THe intuition to this method is that more impo
 certain common words such as "the" might have a high frequency but add nothing to the overall meaning of the corpus. Therefore, stopwords are used, which are filtered from the corpus,
 to ensure their presence doesn't impact the results of the output.
 
-\textbf{TODO: TABLE OF RESULTS FOR TF WITH NGRAMS}
+\begin{table}[]
+        \centering
+        \caption{TF with NGRAMs}
+        \label{ngramonly}
+        \begin{tabular}{| c | c | c | c | c | }
+                \hline
+                \textbf{Ngrams} & \textbf{Precision} & \textbf{Accuracy} & \textbf{Recall} & \textbf{F1}\\
+                \hline
+                NGRAM size & Precision & Accuracy & Recall & F1\\
+                1 & 0.855788161809308 & 0.826965582570256 & 0.826965582570256 & 0.822991482917058\\
+                2 & 0.821616955256766 & 0.731922955478371 & 0.731922955478371 & 0.710538170351274\\
+                3 & 0.871310793427224 & 0.838964319545311 & 0.838964319545311 & 0.835005177576252\\
+                4 & 0.868394678799207 & 0.854752131354594 & 0.854752131354594 & 0.853176349640056\\
+                5 & 0.856919202089254 & 0.855383643826966 & 0.855383643826966 & 0.855151105961723\\
+                \hline
+        \end{tabular}
+\end{table}
 
 
 
@@ -65,6 +81,24 @@ The IDF score represents the amount of information a given ngram contains - if m
 This results in an advanced version of TF that automatically removes stopwords without needing to supply a list.
 
 \textbf{TODO: table of results for TFIDF with NGRAMS}
+\begin{table}[]
+        \centering
+        \caption{TF with NGRAMs}
+        \label{ngramonly}
+        \begin{tabular}{| c | c | c | c | c | }
+                \hline
+                \textbf{Ngrams} & \textbf{Precision} & \textbf{Accuracy} & \textbf{Recall} & \textbf{F1}\\
+                \hline
+                TFIDF NGRAM & Precision & Accuracy & Recall & F1\\
+                1 & 0.857713921254604 & 0.816861383012314 & 0.816861383012314 & 0.810976894429655\\
+                2 & 0.849190911032834 & 0.790653615408904 & 0.790653615408904 & 0.780779400705539\\
+                3 & 0.885475772379496 & 0.863909062203978 & 0.863909062203978 & 0.861732941710458\\
+                4 & 0.883311761081068 & 0.875907799179034 & 0.875907799179034 & 0.875174323829035\\
+                5 & 0.860056817201007 & 0.859488474897379 & 0.859488474897379 & 0.859386985721837\\
+                
+                \hline
+        \end{tabular}
+\end{table}
 
 \section{Deep Learning}
 To carry out the deep learning process, Keras was used with the Tensorflow backend.
@@ -83,5 +117,10 @@ Several different models were created using LSTMs.
 Instead of just passing the output of the LSTM straight to the dense layer with 2 nodes, we put a layer with 100 nodes between these two layers,
 the idea being to provide further weights and nodes to train a more complex model. Results by adding this layer increased, yielding an 83\% accuracy on the test data.
 
+This is the final solution for my LSTM code, which in my experimentation performed the best.
+
+\section{Performance of Shallow vs Deep}
+Overall, I found that the Shallow Learning approach was far better for this problem. Using this method, training was considerably quicker, and the outcome was far better when
+compared with deep learning (88\% accuracy with ngram only multinomial training when compared with 83\% for the deep learning solution proposed).
 
 \end{document}
