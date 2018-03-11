@@ -46,3 +46,5 @@ Using two lstm layers, one 200, one 100, with dropout between. And also dense la
 Score (accuracy) = 81.33%
 
 Not as good for 5 epochs, but might be worth training this on further epochs as this might improve the scoring (assuming we don't overtrain).
+
+Training it on further epochs led to poor valication accuracy (66%). Therefore, we have the best trained model above.
