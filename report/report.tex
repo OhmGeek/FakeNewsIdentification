@@ -88,7 +88,6 @@ Much like Term Frequency above, this adds an additional weight to each ngram. Af
 The IDF score represents the amount of information a given ngram contains - if many documents contain the same ngram, then it's likely that the ngram is a common ngram, and thus not important.
 This results in an advanced version of TF that automatically removes stopwords without needing to supply a list.
 
-\textbf{TODO: table of results for TFIDF with NGRAMS}
 \begin{table}[]
         \centering
         \label{ngramonly}
@@ -117,7 +116,6 @@ This results in an advanced version of TF that automatically removes stopwords w
 Using the experiments above, looking primarily at the resulting accuracy, I chose to use only 3-grams, without using TFIDF, or TF, but using stopwords.
 This not only yielded one of the highest accuracies, but the precision was also the highest. 
 
-
 \section{Deep Learning}
 To carry out the deep learning process, Keras was used with the Tensorflow backend.
 In the case of all deep learning networks, they were trained on 60\% of the dataset, with the remaining 40\% of the data being used as test data.
@@ -130,6 +128,9 @@ Softmax was used for all external nodes for classification as it better represen
 For the extra dense layers used later on, the Hyperbolic Tangent function was used as an activation, as for largely negative input values, using a sigmoid
 would yield values very near to zero, which for dense layers can cause problems (particularly without any biases). Using hyperbolic tangent instead outputs values
 between -1 and 1, which better matches the domain of the values within the word2vec vectors. 
+
+When experimenting with data, I found that using stopwords helped improve the overall model accuracy. Furthermore, reducing the number of words incorporated
+into the embedding vector meant that documents could be better predicted.
 
 \subsection{LSTM with 100 nodes}
 The outcome of using an LSTM with just 100 nodes yields an accuracy of 81\%.
