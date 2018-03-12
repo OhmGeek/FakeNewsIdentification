@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1520809242 "/home/ryan/Documents/Programming/FakeNewsIdentification/report/report.tex" "report.pdf" "report" 1520809242
+["pdflatex"] 1520814922 "/home/ryan/Documents/Programming/FakeNewsIdentification/report/report.tex" "report.pdf" "report" 1520814922
   "/etc/texmf/web2c/texmf.cnf" 1518442574 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/ryan/Documents/Programming/FakeNewsIdentification/report/report.tex" 1520809242 6942 f902d661030840776c86429fc6b948a9 ""
+  "/home/ryan/Documents/Programming/FakeNewsIdentification/report/report.tex" 1520814922 8393 a86b4a5cdaa40c33ae2d7f9fa21f6073 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm" 1136768653 1524 4414a8315f39513458b80dfc63bff03a ""
@@ -55,9 +55,9 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1488610416 31340 0f53f8665296bf8fe6c697f9505e31d8 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1518442703 2044936 0edf5ca64352b50b145b46ea2ee03d92 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1518442714 3885306 374fd4007e2843fbebef8cd1fb50759b ""
-  "report.aux" 1520809242 1365 6693410a78482c4bd7d2fe70368bac65 ""
-  "report.tex" 1520809242 6942 f902d661030840776c86429fc6b948a9 ""
+  "report.aux" 1520814922 1458 e70ffccc1982e64c9f1105e7ed74519c ""
+  "report.tex" 1520814922 8393 a86b4a5cdaa40c33ae2d7f9fa21f6073 ""
   (generated)
   "report.pdf"
-  "report.aux"
   "report.log"
+  "report.aux"

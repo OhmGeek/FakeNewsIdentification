@@ -63,7 +63,6 @@ to ensure their presence doesn't impact the results of the output.
                 \hline
                 \textbf{Ngrams} & \textbf{Precision} & \textbf{Accuracy} & \textbf{Recall} & \textbf{F1}\\
                 \hline
-                NGRAM size & Precision & Accuracy & Recall & F1\\
                 1 & 0.855788161809308 & 0.826965582570256 & 0.826965582570256 & 0.822991482917058\\
                 2 & 0.821616955256766 & 0.731922955478371 & 0.731922955478371 & 0.710538170351274\\
                 3 & 0.871310793427224 & 0.838964319545311 & 0.838964319545311 & 0.835005177576252\\
@@ -89,7 +88,6 @@ This results in an advanced version of TF that automatically removes stopwords w
                 \hline
                 \textbf{Ngrams} & \textbf{Precision} & \textbf{Accuracy} & \textbf{Recall} & \textbf{F1}\\
                 \hline
-                TFIDF NGRAM & Precision & Accuracy & Recall & F1\\
                 1 & 0.857713921254604 & 0.816861383012314 & 0.816861383012314 & 0.810976894429655\\
                 2 & 0.849190911032834 & 0.790653615408904 & 0.790653615408904 & 0.780779400705539\\
                 3 & 0.885475772379496 & 0.863909062203978 & 0.863909062203978 & 0.861732941710458\\
@@ -100,6 +98,12 @@ This results in an advanced version of TF that automatically removes stopwords w
         \end{tabular}
 \end{table}
 
+
+\subsection{Final Shallow Model Chosen}
+Using the experiments above, looking primarily at the resulting accuracy, I chose to use only 3-grams, without using TFIDF, or TF, but using stopwords.
+This not only yielded one of the highest accuracies, but the precision was also the highest. 
+
+
 \section{Deep Learning}
 To carry out the deep learning process, Keras was used with the Tensorflow backend.
 In the case of all deep learning networks, they were trained on 60\% of the dataset, with the remaining 40\% of the data being used as test data.
@@ -107,20 +111,33 @@ This provides sufficient data to train on, but also ensures we can test the mode
 
 Several different models were created using LSTMs.
 
+Softmax was used for all external nodes for classification as it better represents categorical probabilities than other activations such as sigmoid.
+
+For the extra dense layers used later on, the Hyperbolic Tangent function was used as an activation, as for largely negative input values, using a sigmoid
+would yield values very near to zero, which for dense layers can cause problems (particularly without any biases). Using hyperbolic tangent instead outputs values
+between -1 and 1, which better matches the domain of the values within the word2vec vectors. 
+
 \subsection{LSTM with 100 nodes}
-
+The outcome of using an LSTM with just 100 nodes yields an accuracy of 81\%.
 \subsection{LSTM with 200 nodes}
+To improve the model, increasing the number of LSTM nodes could potentially be a method of improving the 
+overall model.
 
+This yields 81\% accuracy on the test set, which doesn't really improve the performance of the system from before.
 \subsection{LSTM with 200 nodes and increased dropout}
+Increasing dropout might be an option, as doing this would decrease the chance of overtraining.
+
+Increasing dropout from 0.1 to 0.2, and increasing the number of epochs from 5 to 8 yields an
+accuracy of 70\%, which is considerably worse. Therefore, going back to the previous 200 node LSTM might be more ideal.
 
 \subsection{LSTM with larger dense layer}
-Instead of just passing the output of the LSTM straight to the dense layer with 2 nodes, we put a layer with 100 nodes between these two layers,
+Instead of just passing the output of the LSTM (with 200 nodes) straight to the dense layer with 2 nodes, we put a layer with 100 nodes between these two layers,
 the idea being to provide further weights and nodes to train a more complex model. Results by adding this layer increased, yielding an 83\% accuracy on the test data.
 
 This is the final solution for my LSTM code, which in my experimentation performed the best.
 
 \section{Performance of Shallow vs Deep}
-Overall, I found that the Shallow Learning approach was far better for this problem. Using this method, training was considerably quicker, and the outcome was far better when
-compared with deep learning (88\% accuracy with ngram only multinomial training when compared with 83\% for the deep learning solution proposed).
+Overall, I found that the Shallow Learning approach was far better for this problem. Using this method, training was considerably quicker, taking only 14 seconds when compared with the 2792 seconds for the deep learning solution.
+The outcome was also far better when compared with deep learning (88\% accuracy with ngram only multinomial training when compared with 83\% for the deep learning solution proposed).
 
 \end{document}

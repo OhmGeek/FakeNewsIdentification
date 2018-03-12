@@ -64,7 +64,7 @@ def main():
     adam = Adam(lr=0.0005, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=True)
     model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
     print(model.summary())
-    model.fit(train_x, train_y, epochs=4, batch_size=32, validation_data=(test_x, test_y))
+    model.fit(train_x, train_y, epochs=5, batch_size=32, validation_data=(test_x, test_y))
     score = model.evaluate(test_x, test_y, verbose=1)
     print("Final Accuracy is: " + str(score))
     model.save('deep-model.h5')
