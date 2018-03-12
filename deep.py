@@ -3,7 +3,7 @@ from deep.word_representation import Word2Vec
 import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense
-from keras.layers import LSTM
+from keras.layers import LSTM, SimpleRNN
 from keras.layers import Dropout
 from keras.layers.embeddings import Embedding
 from keras.preprocessing.text import Tokenizer
@@ -23,7 +23,7 @@ def main():
     # First, we are going to tokenize the dataset.
     # Then convert to sequences
     # Finally we will create an embedding from the word2vec method.
-    tokenizer = Tokenizer(num_words=10000)
+    tokenizer = Tokenizer(num_words=15000)
     tokenizer.fit_on_texts([data[1] for data in dataset])
     sequences = tokenizer.texts_to_sequences([data[1] for data in dataset[1:]])
     word_index = tokenizer.word_index
@@ -66,7 +66,7 @@ def main():
     print(model.summary())
     model.fit(train_x, train_y, epochs=5, batch_size=32, validation_data=(test_x, test_y))
     score = model.evaluate(test_x, test_y, verbose=1)
-    print("Final Accuracy is: " + str(score))
+    print("Final Accuracy is: " + str(score[1]))
     model.save('deep-model.h5')
 if __name__ == '__main__':
     main()

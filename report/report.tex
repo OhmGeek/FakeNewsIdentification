@@ -33,7 +33,6 @@ The results, including precision, accuracy, recall and F1 scores can be found in
 
 \begin{table}[]
         \centering
-        \caption{Ngram only performance}
         \label{ngramonly}
         \begin{tabular}{| c | c | c | c | c | }
                 \hline
@@ -46,8 +45,13 @@ The results, including precision, accuracy, recall and F1 scores can be found in
                 5 & 0.864856516164587 & 0.860435743605936 & 0.860435743605936 & 0.859890709235547\\
                 \hline
         \end{tabular}
+        \caption{Ngram only performance}
 \end{table}
 
+\begin{figure}
+        \centering
+        \includegraphics{ngramonly}
+\end{figure}
 
 \subsection{Term Frequency}
 This automatically uses ngrams, then inputting into a Term Frequency Algorithm. Term Frequency goes through, calculating the number of times a particular
@@ -57,7 +61,6 @@ to ensure their presence doesn't impact the results of the output.
 
 \begin{table}[]
         \centering
-        \caption{TF with NGRAMs}
         \label{ngramonly}
         \begin{tabular}{| c | c | c | c | c | }
                 \hline
@@ -70,8 +73,14 @@ to ensure their presence doesn't impact the results of the output.
                 5 & 0.856919202089254 & 0.855383643826966 & 0.855383643826966 & 0.855151105961723\\
                 \hline
         \end{tabular}
+        \caption{TF with NGRAMs}
 \end{table}
 
+\begin{figure}\label{tfbarchart}
+        \centering
+        \includegraphics{tf}
+        \caption{Bar chart showing metrics for Term Frequency with different ngrams}
+\end{figure}
 
 
 \subsection{TF-idf}
@@ -82,7 +91,6 @@ This results in an advanced version of TF that automatically removes stopwords w
 \textbf{TODO: table of results for TFIDF with NGRAMS}
 \begin{table}[]
         \centering
-        \caption{TF with NGRAMs}
         \label{ngramonly}
         \begin{tabular}{| c | c | c | c | c | }
                 \hline
@@ -96,8 +104,14 @@ This results in an advanced version of TF that automatically removes stopwords w
                 
                 \hline
         \end{tabular}
+        \caption{TF with NGRAMs}
 \end{table}
 
+\begin{figure}\label{tfidfbarchart}
+        \centering
+        \includegraphics{tfidf}
+        \caption{Bar chart showing the metrics for TFIDF for different ngrams (i.e. word amounts)}
+\end{figure}
 
 \subsection{Final Shallow Model Chosen}
 Using the experiments above, looking primarily at the resulting accuracy, I chose to use only 3-grams, without using TFIDF, or TF, but using stopwords.
@@ -136,8 +150,21 @@ the idea being to provide further weights and nodes to train a more complex mode
 
 This is the final solution for my LSTM code, which in my experimentation performed the best.
 
+\subsection{RNN vs LSTM}
+Above, an LSTM was used, which yielded the best results.
+
+Replacing the LSTM layer with an RNN layer (SimpleRNN in Keras), not including the 100 node dense layer,
+yielded a performance that wasn't as good as the LSTM, but the training time was far quicker. The accuracy score for an RNN was
+70.3\%, definitely worse than any of the previous LSTM scores. This is to be expected, as LSTMs are essentially RNNs that also have
+memory that lasts over a longer period, perhaps meaning that the classification with the RNN was more local (as earlier words no longer fully 
+existed in terms of memory inside of the network). 
+
+More specifically, performance wise this model took 947 seconds, far better than the 2792 seconds for the LSTM.
 \section{Performance of Shallow vs Deep}
 Overall, I found that the Shallow Learning approach was far better for this problem. Using this method, training was considerably quicker, taking only 14 seconds when compared with the 2792 seconds for the deep learning solution.
 The outcome was also far better when compared with deep learning (88\% accuracy with ngram only multinomial training when compared with 83\% for the deep learning solution proposed).
+When using an RNN, the performance was better, but yielded far worse results, and shallow outperformed both deep learning models on both performance and accuracy.
+
+Hence, for this system, I'd say that the more Naive Multinomial Bayes approach is far better, as the performance is better, but also yields far better results.
 
 \end{document}
