@@ -16,4 +16,16 @@ Now that's complete, open the virtualenv shell by running:
 pipenv shell
 ```
 
-Then run files by typing ```python3 main.py```
+
+### Running Application
+Now that the above steps have been taken, run the shallow classifier using:
+
+```
+python3 main.py --shallow
+```
+
+Run the deep classifier using:
+
+```
+python3 main.py --deep
+```

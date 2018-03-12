@@ -28,7 +28,6 @@ def main():
     tokenizer.fit_on_texts([data[1] for data in dataset])
     sequences = tokenizer.texts_to_sequences([data[1] for data in dataset[1:]])
     word_index = tokenizer.word_index
-    print("Found " + str(word_index) + " unique tokens")
 
     data_x = sequence.pad_sequences(sequences, maxlen=1000)
 
@@ -48,8 +47,6 @@ def main():
             # words not found in embedding index will be all-zeros.
             embedding_matrix[i] = word2vec.vec_model[word]
 
-    print(train_x.shape)
-    print(train_y.shape)
 
 
     model = Sequential()
