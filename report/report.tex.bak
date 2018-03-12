@@ -18,7 +18,7 @@ and store the data in a way that can assist learning.
 First, the entire file is loaded in, with each component being stored as a list (0 index being the index ID, 1 index being the corpus content, and 2 index being
 the label).
 
-From here, we go through the list, removing all punctuation from the corpus, leaving only words separated by a single space, all converted to lower case.
+From here, we go through the list, removing all punctuation from the corpus, leaving only words seperated by a single space, all converted to lower case.
 Lower case conversion ensures that the same word is not counted differently (i.e. "Fox" will be seen as a different word to "fox" for example). Punctuation removal
 ensures that punctuation doesn't cause words to be perceived as different words (e.g. "fox!" will be seen as a different word to "fox").
 
@@ -55,7 +55,7 @@ The results, including precision, accuracy, recall and F1 scores can be found in
 
 \subsection{Term Frequency}
 This automatically uses ngrams, then inputting into a Term Frequency Algorithm. Term Frequency goes through, calculating the number of times a particular
-ngram has occurred in the corpus. The intuition to this method is that more important words have a greater count that the less important ones. While this is true,
+ngram has occurred in the corpus. THe intuition to this method is that more important words have a greater count that the less important ones. While this is true,
 certain common words such as "the" might have a high frequency but add nothing to the overall meaning of the corpus. Therefore, stopwords are used, which are filtered from the corpus,
 to ensure their presence doesn't impact the results of the output.
 
@@ -140,7 +140,7 @@ overall model.
 
 This yields 81\% accuracy on the test set, which doesn't really improve the performance of the system from before.
 \subsection{LSTM with 200 nodes and increased dropout}
-Increasing dropout might be an option, as doing this would decrease the chance of over-training.
+Increasing dropout might be an option, as doing this would decrease the chance of overtraining.
 
 Increasing dropout from 0.1 to 0.2, and increasing the number of epochs from 5 to 8 yields an
 accuracy of 70\%, which is considerably worse. Therefore, going back to the previous 200 node LSTM might be more ideal.
